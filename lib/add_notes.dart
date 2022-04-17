@@ -1,11 +1,14 @@
+import 'package:first_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AddNotes extends StatefulWidget {
-  //AddNotes({Key? key}) : super(key: key);
+  final AddNewNotes? addNewNotes;
+  final Function editNotesCallBack;
   final Function addNotesCallback;
-  AddNotes(this.addNotesCallback);
+  AddNotes(this.addNotesCallback,this.editNotesCallBack, this.addNewNotes);
+
+ // const AddNotes({Key? key,this.addNewNotes, required this.editNotesCallBack, required this.addNotesCallback}) : super(key: key);
 
   @override
   _AddNotesState createState() => _AddNotesState();
@@ -26,7 +29,11 @@ class _AddNotesState extends State<AddNotes> {
         textColor: Colors.white,
         fontSize: 12);
 
-    widget.addNotesCallback(titleController.text, notesController.text);
+    if(widget.addNewNotes!=null) {
+      widget.editNotesCallBack(titleController.text, notesController.text);
+    } else {
+      widget.addNotesCallback(titleController.text, notesController.text);
+    }
     Navigator.of(context).pop();
   }
 
